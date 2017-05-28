@@ -23,7 +23,18 @@ const example = {
   id: 123,
   user_id: 391,
   name: 'Michael',
-  contact_id: 12
+  contact_id: 12,
+  some: {
+    deep: [{
+      object: {
+        in: {
+          array: [{
+            id: 1
+          }]
+        }
+      }
+    }]
+  }
 }
 
 // Process
@@ -34,7 +45,18 @@ const encodedExample = encode(example)
   id: 'aMj3b',
   user_id: 'elpJe',
   name: 'Michael',
-  contact_id: '7ax9b'
+  contact_id: '7ax9b',
+  some: {
+    deep: [{
+      object: {
+        in: {
+          array: [{
+            id: 'aMj3b'
+          }]
+        }
+      }
+    }]
+  }
 }
 
 // Decode it:
@@ -45,7 +67,18 @@ decode(encodedExample)
   id: 123,
   user_id: 391,
   name: 'Michael',
-  contact_id: 12
+  contact_id: 12,
+  some: {
+    deep: [{
+      object: {
+        in: {
+          array: [{
+            id: 1
+          }]
+        }
+      }
+    }]
+  }
 }
 ```
 
