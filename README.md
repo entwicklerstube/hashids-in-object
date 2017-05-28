@@ -84,4 +84,4 @@ decode(encodedExample)
 
 
 ### Under the hood
-At the moment it uses the `[hashids.js](https://github.com/ivanakimov/hashids.js)` module to encode/decode the single id's.
+At the moment it uses the [`hashids.js`](https://github.com/ivanakimov/hashids.js) module to encode/decode the single id's.
