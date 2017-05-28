@@ -5,13 +5,6 @@ import { encodeId, decodeId, detectIfId, encode,  decode } from './index'
 describe('hashids-in-object', () => {
   describe('encodeId', () => {
     it('returns a string', () => {
-
-      console.log(encode({
-        id: 123,
-        user_id: 391,
-        name: 'Michael',
-        contact_id: 12
-      }));
       expect(encodeId()).to.be.a('string')
     })
 
@@ -66,6 +59,14 @@ describe('hashids-in-object', () => {
     it('returns props as there where passed but encodes all `id` prop-values', () => {
       expect(encode({ id: 1, foo: 'bar', some_id: 2 })).to.deep.equal({ id: 'lejRe', foo: 'bar', some_id: 'mbk5e' })
     })
+
+    it('returns deep positioned id props', () => {
+      expect(encode({ some: { flat: { object: { id: 1 } }} })).to.deep.equal({ some: { flat: { object: { id: 'lejRe' } }} })
+    })
+
+    it('returns deep positioned id props in arrays', () => {
+      expect(encode({ some: { deep: [{ object: { id: 1 } }] } })).to.deep.equal({ some: { deep: [{ object: { id: 'lejRe' } }] } })
+    })
   })
 
   describe('decode', () => {
@@ -79,6 +80,14 @@ describe('hashids-in-object', () => {
 
     it('returns props as they where passed', () => {
       expect(decode({ id: 'lejRe', foo: 'bar', some_id: 'mbk5e' })).to.deep.equal({ id: 1, foo: 'bar', some_id: 2 })
+    })
+
+    it('returns deep positioned id props', () => {
+      expect(decode({ some: { flat: { object: { id: 'lejRe' } }} })).to.deep.equal({ some: { flat: { object: { id: 1 } }} })
+    })
+
+    it('returns deep positioned id props in arrays', () => {
+      expect(decode({ some: { deep: [{ object: { id: 'lejRe' } }] } })).to.deep.equal({ some: { deep: [{ object: { id: 1 } }] } })
     })
   })
 })

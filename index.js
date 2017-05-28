@@ -1,4 +1,5 @@
 import Hashids from 'hashids'
+import flat, { unflatten } from 'flat'
 
 const hashid = new Hashids('', 5)
 
@@ -17,6 +18,8 @@ export const detectIfId = (string = '') => {
 export const encode = (origin = {}) => {
   let response = {}
 
+  origin = flat(origin)
+
   for (let prop in origin) {
     if(detectIfId(prop)) {
       response[prop] = encodeId(origin[prop])
@@ -25,11 +28,13 @@ export const encode = (origin = {}) => {
     }
   }
 
-  return response
+  return unflatten(response)
 }
 
 export const decode = (origin = {}) => {
   let response = {}
+
+  origin = flat(origin)
 
   for (let prop in origin) {
     if(detectIfId(prop)) {
@@ -39,7 +44,7 @@ export const decode = (origin = {}) => {
     }
   }
 
-  return response
+  return unflatten(response)
 }
 
 export default { encodeId, decodeId, detectIfId, encode, decode }
