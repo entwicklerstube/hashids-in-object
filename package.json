@@ -1,6 +1,6 @@
 {
   "name": "hashids-in-object",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": "build/index.js",
   "description": "Go through object, detect id values and decode or encode them",
   "repository": "git@github.com:entwicklerstube/hashids-in-object.git",
