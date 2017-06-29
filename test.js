@@ -78,8 +78,12 @@ describe('hashids-in-object', () => {
       expect(decode({ hey: 'ho', lets: 'go' })).to.deep.equal({ hey: 'ho', lets: 'go' })
     })
 
-    it('returns props as they where passed', () => {
+    it('returns props as they where passed and transforms extra _id field', () => {
       expect(decode({ id: 'lejRe', foo: 'bar', some_id: 'mbk5e' })).to.deep.equal({ id: 1, foo: 'bar', some_id: 2 })
+    })
+
+    it('returns props but doesnt decode _id / Id fields if already numbers', () => {
+      expect(decode({ id: 'lejRe', foo: 'bar', some_id: 'mbk5e', nativeId: 1, native_id: 1 })).to.deep.equal({ id: 1, foo: 'bar', some_id: 2, nativeId: 1, native_id: 1 })
     })
 
     it('returns deep positioned id props', () => {

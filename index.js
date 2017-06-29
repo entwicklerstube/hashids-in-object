@@ -37,7 +37,7 @@ export const decode = (origin = {}) => {
   origin = flat(origin)
 
   for (let prop in origin) {
-    if(detectIfId(prop)) {
+    if(detectIfId(prop) && typeof origin[prop] === 'string') {
       response[prop] = decodeId(origin[prop])
     } else {
       response[prop] = origin[prop]
