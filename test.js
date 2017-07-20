@@ -60,6 +60,10 @@ describe('hashids-in-object', () => {
       expect(encode({ id: 1, foo: 'bar', some_id: 2 })).to.deep.equal({ id: 'lejRe', foo: 'bar', some_id: 'mbk5e' })
     })
 
+    it('returns ids encoded in array', () => {
+      expect(encode({ some_id: [1,2,3]})).to.deep.equal({ some_id: ['lejRe', 'mbk5e', 'nel5a'] })
+    })
+
     it('returns deep positioned id props', () => {
       expect(encode({ some: { flat: { object: { id: 1 } }} })).to.deep.equal({ some: { flat: { object: { id: 'lejRe' } }} })
     })
@@ -84,6 +88,10 @@ describe('hashids-in-object', () => {
 
     it('returns props but doesnt decode _id / Id fields if already numbers', () => {
       expect(decode({ id: 'lejRe', foo: 'bar', some_id: 'mbk5e', nativeId: 1, native_id: 1 })).to.deep.equal({ id: 1, foo: 'bar', some_id: 2, nativeId: 1, native_id: 1 })
+    })
+    
+    it('decoded ids encoded in array', () => {
+      expect(decode({some_id: ['lejRe', 'mbk5e', 'nel5a'] })).to.deep.equal({ some_id: [1,2,3] })
     })
 
     it('returns deep positioned id props', () => {

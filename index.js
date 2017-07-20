@@ -12,7 +12,7 @@ export const decodeId = id => {
 }
 
 export const detectIfId = (string = '') => {
-  return /(([a-z]+)_)?id$/.test(string.toLowerCase())
+  return /(([a-z]+)_)?id(\W|$)/.test(string.toLowerCase())
 }
 
 export const encode = (origin = {}) => {
@@ -21,7 +21,7 @@ export const encode = (origin = {}) => {
   origin = flat(origin)
 
   for (let prop in origin) {
-    if(detectIfId(prop)) {
+    if (detectIfId(prop)) {
       response[prop] = encodeId(origin[prop])
     } else {
       response[prop] = origin[prop]
@@ -37,7 +37,7 @@ export const decode = (origin = {}) => {
   origin = flat(origin)
 
   for (let prop in origin) {
-    if(detectIfId(prop) && typeof origin[prop] === 'string') {
+    if (detectIfId(prop) && typeof origin[prop] === 'string') {
       response[prop] = decodeId(origin[prop])
     } else {
       response[prop] = origin[prop]
